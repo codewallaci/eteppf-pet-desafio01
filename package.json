@@ -1,0 +1,26 @@
+{
+  "name": "eteppf-pet-desafio01",
+  "version": "1.0.0",
+  "description": "API criada para o desafio 01 do Programa de Extensão Tecnológica da Escola Técnica Estadual Professor Paulo Freire.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codewallaci/eteppf-pet-desafio01.git"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "codewallaci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codewallaci/eteppf-pet-desafio01/issues"
+  },
+  "homepage": "https://github.com/codewallaci/eteppf-pet-desafio01#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "git-all": "0.0.3"
+  }
+}
