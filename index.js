@@ -16,6 +16,7 @@ app.use(
 );
 app.options('*', cors());
 
+//Página inicial para documentação da API.
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
   })
