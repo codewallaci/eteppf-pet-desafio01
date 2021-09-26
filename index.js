@@ -16,6 +16,10 @@ app.use(
 );
 app.options('*', cors());
 
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+  })
+  
 //Requisição padrão para ter todos os produtos.
 app.get('/api/produtos', (req, res) => {
     res.send(produtos)
