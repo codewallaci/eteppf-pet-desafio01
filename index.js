@@ -4,8 +4,10 @@ var cors = require('cors');
 const {v4: uuid} = require('uuid')
 app.use(express.json())
 
-const alunos = []
+//Constante do tipo array que vai salvar todos os produtos cadastrados na API.
+const produtos = []
 
+//Cors é responsável por fornecer ao Express um middleware que permite lidar com requisições externas.
 app.use(
     cors({
         credentials: true,
@@ -14,34 +16,61 @@ app.use(
 );
 app.options('*', cors());
 
-app.get('/alunos', (req, res) => {
-    res.send(alunos)
+//Requisição padrão para ter todos os produtos.
+app.get('/api/produtos', (req, res) => {
+    res.send(produtos)
 })
 
-app.post('/alunos/cadastro', (req, res) => {
+//Método de post para cadastrar novos produtos.
+app.post('/api/produtos/cadastro', (req, res) => {
     const dados = req.body
-    alunos.push({
+    produtos.push({
       id: uuid(),
       ...dados
     })
-    return res.send("Aluno cadastrado")
+    return res.send('Produto cadastrado com sucesso.')
   
-  })
-  
-  app.put('/alunos/alterar/:id', (req, res) => {
-    const dados = req.body
-  
-    const id = req.params.id
-    const indexAluno = alunos.findIndex((aluno) => aluno.id == id)
-    if(indexAluno == -1){
-      res.send("Aluno não encontrado")
-    }
-  
-    alunos[indexAluno] = {id, ...dados}
-    res.send("Aluno alterado com sucesso", id, indexAluno)
-  })
-  
+})
 
+//Método para obter informações de um produto específico com o id do mesmo.
+app.get('/api/produtos/:id', (req, res) =>{
+ 
+    const id = req.params.id
+    const indexProduto = produtos.findIndex((produto) => produto.id == id)
+    const idEProdutos = [produtos[indexProduto]]
+
+    if(indexProduto == -1){
+        return res.send('Produto não encontrado.')
+    }
+        res.json(idEProdutos)
+})
+
+//Método para alterar um produto com o id dele.
+app.put('/api/produtos/alterar/:id', (req, res) => {
+    const dados = req.body
+    const id = req.params.id
+    const indexProduto = produtos.findIndex((produto) => produto.id == id)
+    
+    if(indexProduto == -1){
+        return res.send('Produto não encontrado.' + indexProduto)
+    }
+        produtos[indexProduto] = {id, ...dados}
+        res.send('Produto alterado com sucesso.', id, indexProduto)
+})
+
+//Método para apagar um produto usando o id dele.
+app.delete('/api/produtos/deletar/:id', (req, res) => {
+    const id = req.params.id
+    const indexProduto = produtos.findIndex((produto) => produto.id == id)
+    
+    if(indexProduto == -1){
+        return res.send('Produto não encontrado.')       
+    }
+        produtos.splice(indexProduto, 1)
+        res.send('Produto removido com sucesso.')
+})
+
+//Inicio da aplicação.
 app.listen(process.env.PORT || 3000, function() {
-    console.log('API rodando na porta 3000', '');
+    console.log('API iniciando na porta 3000', '');
 });
