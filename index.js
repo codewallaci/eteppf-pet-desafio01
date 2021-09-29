@@ -10,8 +10,8 @@ const produtos = []
 //Cors é responsável por fornecer ao Express um middleware que permite lidar com requisições externas.
 app.use(
     cors({
-        credentials: true,
-        origin: true
+        credentials: false,
+        origin: false
     })
 );
 app.options('*', cors());
